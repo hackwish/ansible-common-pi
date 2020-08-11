@@ -226,7 +226,7 @@
       # - qemu
       # - qemu-kvm
       # - quodlibet
-      - rar
+      # - rar
       - rbenv
       # - redshift
       # - redshift-gtk
