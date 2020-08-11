@@ -69,7 +69,7 @@
       - dirmngr
       - dnsmasq
       - docker
-      - docker-ce
+      # - docker-ce
       - docker-compose
       # - dropbox
       - ebtables
