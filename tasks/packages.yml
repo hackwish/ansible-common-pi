@@ -30,33 +30,33 @@
     name: "{{ packages }}"
   vars:
     packages:
-      - acl
+      # - acl
       - apt-transport-https
-      - apt-xapian-index
+      # - apt-xapian-index
       - aptitude
       # - arc-theme
-      - arj
+      # - arj
       - atop
-      - autoconf
+      # - autoconf
       - automake
       # - awscli
       # - balena-etcher-electron
-      - bc
-      - bison
+      # - bc
+      # - bison
       # - boot-repair
       # - brasero-cdrkit
-      - build-essential
+      # - build-essential
       - ca-certificates
       # - catfish
       - ccze
-      - checkinstall
+      # - checkinstall
       # - chromium-browser
       # - chromium-browser-l10n
       # - chromium-codecs-ffmpeg
-      - clang
+      # - clang
       - cmake
-      - cmake-curses-gui
-      - collectd
+      # - cmake-curses-gui
+      # - collectd
       # - compiz
       # - compiz-plugins-extra
       # - compizconfig-settings-manager
@@ -73,7 +73,7 @@
       - docker-compose
       # - dropbox
       - ebtables
-      - fdupes
+      # - fdupes
       # - figlet
       # - file-roller
       # - filezilla
@@ -82,7 +82,7 @@
       - flatpak
       # - fonts-noto
       # - forticlient
-      - fpc
+      # - fpc
       # - freeglut3
       - g++
       - gcc
@@ -164,20 +164,20 @@
       # - libyaml-dev
       - linux-generic
       - linux-headers-generic
-      - lldpd
+      # - lldpd
       - lm-sensors
       - lsb-release
       - lshw
       # - lxd
       # - lxd-client
       # - lutris
-      - mailutils
+      # - mailutils
       - make
       # - meld
       # - module-assistant
-      - moreutils
-      - mpack
-      - multipath-tools
+      # - moreutils
+      # - mpack
+      # - multipath-tools
       - multitail
       # - mysql-workbench-community
       - nano
@@ -243,10 +243,10 @@
       # - skypeforlinux
       - smartmontools
       - snapd
-      - snmp
-      - snmp-mibs-downloader
-      - snmpd
-      - software-properties-common
+      # - snmp
+      # - snmp-mibs-downloader
+      # - snmpd
+      # - software-properties-common
       # - soundconverter
       # - spotify-client
       # - ssh-askpass
@@ -254,7 +254,7 @@
       - stress
       # - sublime-merge
       # - sublime-text
-      - subversion
+      # - subversion
       - sudo
       - swaks
       - synaptic
