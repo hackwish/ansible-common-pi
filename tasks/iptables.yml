@@ -43,6 +43,27 @@
         jump: ACCEPT
         protocol: tcp
 
+    - name: Firewall rule - allow port Blackbox Exporter 9115 traffic
+      iptables:
+        chain: INPUT
+        destination_port: '9115'
+        jump: ACCEPT
+        protocol: tcp
+
+    - name: Firewall rule - allow port AlertManager 9093 traffic
+      iptables:
+        chain: INPUT
+        destination_port: '9093'
+        jump: ACCEPT
+        protocol: tcp
+
+    - name: Firewall rule - allow port Prometheus 9090 traffic
+      iptables:
+        chain: INPUT
+        destination_port: '9090'
+        jump: ACCEPT
+        protocol: tcp
+
     - name: Firewall rule - allow port OVPN 1194 UDP traffic
       iptables:
         chain: INPUT
