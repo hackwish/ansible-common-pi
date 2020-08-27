@@ -162,8 +162,8 @@
       # - libxml2-dev
       # - libxslt-dev
       # - libyaml-dev
-      - linux-generic
-      - linux-headers-generic
+      # - linux-generic
+      # - linux-headers-generic
       # - lldpd
       - lm-sensors
       - lsb-release
