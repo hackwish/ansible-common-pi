@@ -213,7 +213,7 @@
       # - plank
       # - playonlinux
       # - portaudio19-dev
-      - postfix
+      # - postfix
       - powertop
       - preload
       - psensor

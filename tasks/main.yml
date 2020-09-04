@@ -9,11 +9,11 @@
 # - include: i386-support.yml
 #   tags: i386-support
 
-- include: packages.yml
-  tags: packages
+# - include: packages.yml
+#   tags: packages
 
-- include: aditional-packages.yml
-  tags: aditional-packages
+# - include: aditional-packages.yml
+#   tags: aditional-packages
 
 - include: locales.yml
   tags: locales
@@ -27,8 +27,8 @@
 - include: ulimit.yml
   tags: ulimit
 
-- include: iptables.yml
-  tags: iptables
+# - include: iptables.yml
+#   tags: iptables
 
 - include: ntp.yml
   tags: ntp
