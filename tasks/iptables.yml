@@ -141,7 +141,7 @@
     - name: Firewall rule - allow TUN0 OUTPUT traffic
       iptables:
         chain: OUTPUT
-        in_interface: tun0
+        out_interface: tun0
         jump: ACCEPT
 
     - name: Allow forwarding from TUN0 to interface
@@ -189,7 +189,7 @@
             - RST
             - SYN
             - FIN
-            
+
     # Set tcp flags
     # - iptables:
     #     chain: OUTPUT
