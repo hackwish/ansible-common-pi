@@ -28,18 +28,18 @@
         in_interface: lo
         jump: ACCEPT
 
-    - name: Block specific IP
-      iptables:
-        chain: INPUT
-        in_interface: lo
-        source: 127.0.0.0/8
-        jump: DROP
-      become: yes
+    # - name: Block specific IP
+    #   iptables:
+    #     chain: INPUT
+    #     in_interface: lo
+    #     source: 127.0.0.0/8
+    #     jump: DROP
+    #   become: yes
 
     - name: Firewall rule - allow all loopback traffic
       iptables:
         chain: OUTPUT
-        in_interface: lo
+        out_interface: lo
         jump: ACCEPT
 
     - name: Firewall rule - allow established connections
