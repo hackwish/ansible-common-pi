@@ -160,15 +160,15 @@
         jump: ACCEPT
 
     ## LOG
-    - name: Log packets arriving into an user-defined chain
-      iptables:
-        chain: LOGGING
-        action: append
-        state: present
-        limit: 2/second
-        limit_burst: 20
-        log_prefix: "IPTABLES:INFO: "
-        log_level: info
+    # - name: Log packets arriving into an user-defined chain
+    #   iptables:
+    #     chain: LOGGING
+    #     action: append
+    #     state: present
+    #     limit: 2/second
+    #     limit_burst: 20
+    #     log_prefix: "IPTABLES:INFO: "
+    #     log_level: info
 
     # Tag all outbound tcp packets with DSCP DiffServ class CS1
     - iptables:
