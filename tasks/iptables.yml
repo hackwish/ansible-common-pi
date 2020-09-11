@@ -124,18 +124,6 @@
         jump: ACCEPT
         protocol: tcp  
 
-    - iptables:
-        chain: INPUT
-        jump: DROP
-        protocol: tcp
-        tcp_flags:
-          flags: ALL
-          flags_set:
-            - ACK
-            - RST
-            - SYN
-            - FIN
-
     ## INTERFACES
     ### TUN0
     - name: Firewall rule - allow TUN0 traffic
@@ -190,6 +178,18 @@
         set_dscp_mark_class: CS6
         protocol: tcp
 
+    - iptables:
+        chain: INPUT
+        jump: DROP
+        protocol: tcp
+        tcp_flags:
+          flags: ALL
+          flags_set:
+            - ACK
+            - RST
+            - SYN
+            - FIN
+            
     # Set tcp flags
     # - iptables:
     #     chain: OUTPUT
