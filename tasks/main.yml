@@ -3,8 +3,8 @@
 - include: ssh-keys.yml
   tags: ssh-keys
 
-- include: repos.yml
-  tags: repos
+#- include: repos.yml
+#  tags: repos
 
 # - include: i386-support.yml
 #   tags: i386-support
@@ -24,8 +24,8 @@
 - include: sysctl.yml
   tags: sysctl
 
-- include: ulimit.yml
-  tags: ulimit
+#- include: ulimit.yml
+#  tags: ulimit
 
 # - include: iptables.yml
 #   tags: iptables
