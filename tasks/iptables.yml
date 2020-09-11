@@ -165,7 +165,7 @@
         chain: LOGGING
         action: append
         state: present
-        limit: 3/minutes
+        limit: 2/second
         limit_burst: 20
         log_prefix: "IPTABLES:INFO: "
         log_level: info
@@ -178,19 +178,19 @@
         set_dscp_mark_class: CS6
         protocol: tcp
 
-    - iptables:
-        chain: INPUT
-        jump: DROP
-        protocol: tcp
-        tcp_flags:
-          flags: ALL
-          flags_set:
-            - ACK
-            - RST
-            - SYN
-            - FIN
+    # - iptables:
+    #     chain: INPUT
+    #     jump: DROP
+    #     protocol: tcp
+    #     tcp_flags:
+    #       flags: ALL
+    #       flags_set:
+    #         - ACK
+    #         - RST
+    #         - SYN
+    #         - FIN
 
-    # Set tcp flags
+    # # Set tcp flags
     # - iptables:
     #     chain: OUTPUT
     #     jump: DROP
