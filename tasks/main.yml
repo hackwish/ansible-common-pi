@@ -27,8 +27,8 @@
 #- include: ulimit.yml
 #  tags: ulimit
 
-# - include: iptables.yml
-#   tags: iptables
+- include: iptables.yml
+  tags: iptables
 
 - include: ntp.yml
   tags: ntp

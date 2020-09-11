@@ -4,105 +4,6 @@
       package:
         name: iptables
         state: latest
-    - name: Flush existing firewall rules
-      iptables:
-        flush: true
-
-    #GENERAL RULES
-    - name: Firewall rule - allow all loopback traffic
-      iptables:
-        action: append
-        chain: INPUT
-        in_interface: lo
-        jump: ACCEPT
-
-    - name: Firewall rule - allow established connections
-      iptables:
-        chain: INPUT
-        ctstate: ESTABLISHED,RELATED
-        jump: ACCEPT
-
-    #IP TABLES RULES
-    - name: Firewall rule - BLOCK port ping traffic
-      iptables:
-        chain: INPUT
-        jump: ACCEPT
-        protocol: icmp
-
-    - name: Firewall rule - allow port 22/SSH traffic
-      iptables:
-        chain: INPUT
-        destination_port: '22'
-        jump: ACCEPT
-        protocol: tcp
-
-    - name: Firewall rule - allow port Node Exporter 9100 traffic
-      iptables:
-        chain: INPUT
-        destination_port: '9100'
-        jump: ACCEPT
-        protocol: tcp
-
-    - name: Firewall rule - allow port Blackbox Exporter 9115 traffic
-      iptables:
-        chain: INPUT
-        destination_port: '9115'
-        jump: ACCEPT
-        protocol: tcp
-
-    - name: Firewall rule - allow port AlertManager 9093 traffic
-      iptables:
-        chain: INPUT
-        destination_port: '9093'
-        jump: ACCEPT
-        protocol: tcp
-
-    - name: Firewall rule - allow port Prometheus 9090 traffic
-      iptables:
-        chain: INPUT
-        destination_port: '9090'
-        jump: ACCEPT
-        protocol: tcp
-
-    - name: Firewall rule - allow port OVPN 1194 UDP traffic
-      iptables:
-        chain: INPUT
-        destination_port: '1194'
-        jump: ACCEPT
-        protocol: udp
-
-    - iptables:
-        chain: INPUT
-        jump: DROP
-        protocol: tcp
-        tcp_flags:
-          flags: ALL
-          flags_set:
-            - ACK
-            - RST
-            - SYN
-            - FIN
-
-    # Tag all outbound tcp packets with DSCP DiffServ class CS1
-    - iptables:
-        chain: OUTPUT
-        jump: DSCP
-        table: mangle
-        set_dscp_mark_class: CS6
-        protocol: tcp
-
-    # Set tcp flags
-    - iptables:
-        chain: OUTPUT
-        jump: DROP
-        protocol: tcp
-        tcp_flags:
-          flags: ALL
-          flags_set:
-            - ACK
-            - RST
-            - SYN
-            - FIN
 
     #ENABLE IPTABLES PERSISTENCE
     - name: Install `netfilter-persistent` && `iptables-persistent` packages
@@ -113,3 +14,191 @@
           - iptables-persistent
           - netfilter-persistent
       when: ansible_os_family == "Debian" or ansible_os_family == "Ubuntu"
+
+
+    - name: Flush existing firewall rules
+      iptables:
+        flush: true
+
+    #GENERAL RULES
+    ## Loopback
+    - name: Firewall rule - allow all loopback traffic
+      iptables:
+        chain: INPUT
+        in_interface: lo
+        jump: ACCEPT
+
+    - name: Block specific IP
+      iptables:
+        chain: INPUT
+        in_interface: lo
+        source: 127.0.0.0/8
+        jump: DROP
+      become: yes
+
+    - name: Firewall rule - allow all loopback traffic
+      iptables:
+        chain: OUTPUT
+        in_interface: lo
+        jump: ACCEPT
+
+    - name: Firewall rule - allow established connections
+      iptables:
+        chain: INPUT
+        ctstate: ESTABLISHED,RELATED
+        jump: ACCEPT
+
+    ## PORT TRAFFIC
+    ### PING
+    - name: Firewall rule - BLOCK port ping traffic
+      iptables:
+        chain: INPUT
+        jump: ACCEPT
+        protocol: icmp
+
+    ### SSH
+    - name: Firewall rule - allow port 22/SSH traffic
+      iptables:
+        chain: INPUT
+        ctstate: NEW,ESTABLISHED
+        destination_port: '22'
+        jump: ACCEPT
+        protocol: tcp
+
+    - name: Firewall rule - allow port 22/SSH OUT traffic
+      iptables:
+        chain: OUTPUT
+        ctstate: ESTABLISHED
+        destination_port: '22'
+        jump: ACCEPT
+        protocol: tcp
+
+    ### NTP
+    - name: Firewall rule - allow port 123 traffic
+      iptables:
+        chain: INPUT
+        ctstate: NEW,ESTABLISHED
+        destination_port: '123'
+        jump: ACCEPT
+        protocol: udp
+
+    - name: Firewall rule - allow port 123 OUT traffic
+      iptables:
+        chain: OUTPUT
+        ctstate: ESTABLISHED
+        destination_port: '123'
+        jump: ACCEPT
+        protocol: udp
+
+    ### VPN
+    - name: Firewall rule - allow port 1194 traffic
+      iptables:
+        chain: INPUT
+        ctstate: NEW,ESTABLISHED
+        destination_port: '1194'
+        jump: ACCEPT
+        protocol: udp
+
+    - name: Firewall rule - allow port 1194 OUT traffic
+      iptables:
+        chain: OUTPUT
+        ctstate: ESTABLISHED
+        destination_port: '1194'
+        jump: ACCEPT
+        protocol: udp  
+
+    ###PROMETHEUS
+    - name: Firewall rule - allow port 9090 traffic
+      iptables:
+        chain: INPUT
+        ctstate: NEW,ESTABLISHED
+        destination_port: '9090'
+        jump: ACCEPT
+        protocol: tcp
+
+    - name: Firewall rule - allow port 9090 OUT traffic
+      iptables:
+        chain: OUTPUT
+        ctstate: ESTABLISHED
+        destination_port: '9090'
+        jump: ACCEPT
+        protocol: tcp  
+
+    - iptables:
+        chain: INPUT
+        jump: DROP
+        protocol: tcp
+        tcp_flags:
+          flags: ALL
+          flags_set:
+            - ACK
+            - RST
+            - SYN
+            - FIN
+
+    ## INTERFACES
+    ### TUN0
+    - name: Firewall rule - allow TUN0 traffic
+      iptables:
+        chain: INPUT
+        in_interface: tun0
+        jump: ACCEPT
+
+    - name: Firewall rule - allow TUN0 FORWARD traffic
+      iptables:
+        chain: FORWARD
+        in_interface: tun0
+        jump: ACCEPT
+
+    - name: Firewall rule - allow TUN0 OUTPUT traffic
+      iptables:
+        chain: OUTPUT
+        in_interface: tun0
+        jump: ACCEPT
+
+    - name: Allow forwarding from TUN0 to interface
+      iptables:
+        chain: FORWARD
+        in_interface: tun0
+        source: 10.8.0.0/24
+        #out_interface: "{{ ansible_default_ipv4.interface }}"
+        jump: ACCEPT
+
+    - name: Allow forwarding from TUN0 to interface
+      iptables:
+        match: [ 'state' ]
+        chain: FORWARD
+        ctstate: ESTABLISHED,RELATED
+        jump: ACCEPT
+
+    ## LOG
+    - name: Log packets arriving into an user-defined chain
+      iptables:
+        chain: LOGGING
+        action: append
+        state: present
+        limit: 3/minutes
+        limit_burst: 20
+        log_prefix: "IPTABLES:INFO: "
+        log_level: info
+
+    # Tag all outbound tcp packets with DSCP DiffServ class CS1
+    - iptables:
+        chain: OUTPUT
+        jump: DSCP
+        table: mangle
+        set_dscp_mark_class: CS6
+        protocol: tcp
+
+    # Set tcp flags
+    # - iptables:
+    #     chain: OUTPUT
+    #     jump: DROP
+    #     protocol: tcp
+    #     tcp_flags:
+    #       flags: ALL
+    #       flags_set:
+    #         - ACK
+    #         - RST
+    #         - SYN
+    #         - FIN
