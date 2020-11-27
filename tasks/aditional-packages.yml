@@ -84,29 +84,29 @@
           #- awscli
         state: present
 
-    #INSTALL GEMS
-    - gem:
-        name: 'rake'
-        state: present
-
-    - gem:
-        name: 'gemspec'
-        state: present
-
+    # #INSTALL GEMS
     # - gem:
-    #     name: 'capistrano'
+    #     name: 'rake'
     #     state: present
 
     # - gem:
-    #     name: 'capistrano'
-    #     version: '3.4.0'
+    #     name: 'gemspec'
     #     state: present
+
+    # # - gem:
+    # #     name: 'capistrano'
+    # #     state: present
+
+    # # - gem:
+    # #     name: 'capistrano'
+    # #     version: '3.4.0'
+    # #     state: present
+
+    # # - gem:
+    # #     name: 'capistrano-passenger'
+    # #     state: present
 
     # - gem:
-    #     name: 'capistrano-passenger'
+    #     name: 'fog'
+    #     version: '1.8'
     #     state: present
-
-    - gem:
-        name: 'fog'
-        version: '1.8'
-        state: present
