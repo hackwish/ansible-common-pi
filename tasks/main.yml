@@ -12,8 +12,8 @@
 # - include: packages.yml
 #   tags: packages
 
-# - include: aditional-packages.yml
-#   tags: aditional-packages
+- include: aditional-packages.yml
+  tags: aditional-packages
 
 - include: locales.yml
   tags: locales

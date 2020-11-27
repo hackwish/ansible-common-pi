@@ -80,6 +80,7 @@
       vars:
         packages:
           - pyOpenSSL
+          - docker-py
           #- awscli
         state: present
 
