@@ -13,8 +13,9 @@
    
 #INSTALL COMMON PACKAGES 
 - name: Instala paquetes common
-  packages: 
+  package:
     name: "{{ packages }}"
+    state: present
   vars:
     packages:
       - ccze
@@ -52,6 +53,5 @@
       - whois
       - zip
       - zlib1g-dev
-    state: present
   #register: common-packages-installation
   tags: common
