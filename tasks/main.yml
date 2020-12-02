@@ -3,14 +3,8 @@
 - include: ssh-keys.yml
   tags: ssh-keys
 
-#- include: repos.yml
-#  tags: repos
-
-# - include: i386-support.yml
-#   tags: i386-support
-
-# - include: packages.yml
-#   tags: packages
+- include: packages.yml
+  tags: packages
 
 - include: aditional-packages.yml
   tags: aditional-packages
